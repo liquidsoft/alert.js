@@ -1,5 +1,5 @@
 {
-  "name": "alert.js",
+  "name": "alert-js",
   "description": "Customizable plug and play replacement for window.alert",
   "main": "dist/alert.min.js",
   "authors": [
@@ -21,6 +21,11 @@
   "homepage": "github.com/liquidsoft/alert.js",
   "ignore": [
     "node_modules",
-    "bower_components"
-  ]
+    "bower_components",
+    ".idea"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/liquidsoft/alert.js.git"
+  }
 }

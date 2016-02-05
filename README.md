@@ -13,7 +13,7 @@ npm install alert.js
 
 Installation via bower:
 ```shell
-bower install alert.js
+bower install alert-js
 ```
 
 Manual installation: download the contents of the *dist* folder.

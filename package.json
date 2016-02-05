@@ -1,6 +1,6 @@
 {
   "name": "alert.js",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Customizable plug and play replacement for window.alert",
   "keywords": [
     "customizable",
@@ -9,8 +9,13 @@
     "window.alert",
     "replacement"
   ],
+  "main": "dist/alert.js",
   "author": "Robert Ontiu",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/liquidsoft/alert.js.git"
+  },
   "devDependencies": {
     "grunt": "^0.4.5",
     "grunt-contrib-concat": "^0.5.1",
