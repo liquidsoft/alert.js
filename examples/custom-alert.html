@@ -1,0 +1,50 @@
+<html>
+<head>
+    <title>alert.js - Custom example</title>
+    <link rel="stylesheet" href="../dist/alert.css" />
+    <script type="text/javascript" src="../dist/alert.min.js"></script>
+</head>
+<body>
+<script type="text/javascript">
+    // Setting the default options
+    alert({
+        title: "Alert.js",
+        closeButton: false,
+        buttons: {
+            "Tell me more!": function(dialog) {
+                var body    = document.createElement("div"),
+                    a       = document.createElement("a");
+
+                a.href = "https://github.com/liquidsoft/alert.js";
+                a.target = "_blank";
+                a.innerText = "here";
+
+                body.appendChild(document.createTextNode("You can read the full documentation "));
+                body.appendChild(a);
+                body.appendChild(document.createTextNode("."));
+
+                alert(body, {
+                    title: "Fork me!",
+                    skipQueue: true,
+                    buttons: {
+                        "Got it!": function (dialog) {
+                            dialog.close();
+                        }
+                    }
+                });
+
+                dialog.close();
+            },
+
+            "Next": function(dialog) {
+                dialog.close();
+            }
+        }
+    });
+
+    alert("alert.js is a simple, lightweight plugin which replaces the native window.alert function!");
+    alert("You may still use the native function if needed by calling the function window._alert.");
+    alert("This might come in handy if you are working on a big project which uses a lot of the native window.alert function.");
+</script>
+</body>
+</html>
