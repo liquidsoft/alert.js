@@ -1,6 +1,6 @@
 /*
 alert.js
-@version 0.1.2
+@version 0.1.31
 @author Robert Ontiu
  */
 
@@ -29,7 +29,7 @@ alert.js
         });
     }
 
-}) (this, this.window, function (root, $window) {
+}) (this, window, function (root, $window) {
 
     /*
     @private

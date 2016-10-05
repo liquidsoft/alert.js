@@ -23,7 +23,7 @@
         });
     }
 
-}) (this, this.window, function (root, $window) {
+}) (this, window, function (root, $window) {
 
     /*
     @private
