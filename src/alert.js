@@ -394,6 +394,15 @@
 
         $window.document.body.appendChild(container);
 
+        // Close on click
+        container.addEventListener("click", function( e ) {
+            e.preventDefault();
+
+            if (dialog) {
+                dialog.close();
+            }
+        });
+
         alert();
 
         /*
