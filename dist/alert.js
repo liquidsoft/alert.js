@@ -1,6 +1,6 @@
 /*
 alert.js
-@version 0.1.31
+@version 0.1.32
 @author Robert Ontiu
  */
 
@@ -35,6 +35,8 @@ alert.js
     @private
      */
 
+    var jQuery = $window.jQuery;
+
     /**
      * alert.js default options
      *
@@ -57,7 +59,7 @@ alert.js
         skipQueue: false,
 		
 		// jQuery draggable
-		draggable: (typeof($window.jQuery) === "function") && (typeof($window.jQuery.ui) === "object") && (typeof($window.jQuery.fn.draggable) === "function"),
+		draggable: (typeof(jQuery) === "function") && (typeof(jQuery.ui) === "object") && (typeof(jQuery.fn.draggable) === "function"),
 		
 		position: {
 			top: "10%",
@@ -113,7 +115,7 @@ alert.js
 		
 		// Destroy draggable
 		if (this.options.draggable) {
-			$window.jQuery(this.element).draggable("destroy");
+			jQuery(this.element).draggable("destroy");
 		}
 
         // Register alert for garbage collection
@@ -164,8 +166,8 @@ alert.js
         if (this.body instanceof HTMLElement) {
             body.appendChild(this.body);
         }
-        else if ((typeof($window.jQuery) === "function") && (this.body instanceof $window.jQuery)) {
-            $window.jQuery(body).append(this.body);
+        else if ((typeof(jQuery) === "function") && (this.body instanceof jQuery)) {
+            jQuery(body).append(this.body);
         }
         else {
             body.innerHTML = typeof(this.body) === "string" ? this.body : "";
@@ -208,11 +210,11 @@ alert.js
 		
 		// Initialize draggable
 		if (	this.options.draggable && 
-				(typeof($window.jQuery) === "function") && 
-				(typeof($window.jQuery.ui) === "object") && 
-				(typeof($window.jQuery.fn.draggable) === "function")
+				(typeof(jQuery) === "function") &&
+				(typeof(jQuery.ui) === "object") &&
+				(typeof(jQuery.fn.draggable) === "function")
 		) {
-			$window.jQuery(this.element).draggable({
+			jQuery(this.element).draggable({
 					
 				containment: "parent",
 				handle: ".alert-header",
@@ -350,7 +352,7 @@ alert.js
             alert(body, options)  - Queues a new Alert dialog
              */
             if (    (arg0 instanceof HTMLElement) ||
-                    (typeof($window.jQuery) === "function") && (arg0 instanceof $window.jQuery) ||
+                    (typeof(jQuery) === "function") && (arg0 instanceof jQuery) ||
                     (typeof(arg0) === "string")
             ) {
 				
@@ -407,6 +409,20 @@ alert.js
             if (dialog !== null) center(dialog);
         };*/
     });
+
+    /*
+    Lazy load jQuery in nonAMD nor DOM projects
+     */
+
+    alert.configure = function( key, value ) {
+
+        switch(key) {
+            case "jQuery":
+                jQuery = value;
+                break;
+        }
+
+    };
 
     /*
      @public
