@@ -1,6 +1,6 @@
 /*
 alert.js
-@version 0.1.32
+@version 0.1.34
 @author Robert Ontiu
  */
 
@@ -399,6 +399,15 @@ alert.js
         container.style.display = "none";
 
         $window.document.body.appendChild(container);
+
+        // Close on click
+        container.addEventListener("click", function( e ) {
+            e.preventDefault();
+
+            if (dialog) {
+                dialog.close();
+            }
+        });
 
         alert();
 
