@@ -398,7 +398,7 @@
         container.addEventListener("click", function( e ) {
             e.preventDefault();
 
-            if (dialog) {
+            if (dialog && (e.target === container)) {
                 dialog.close();
             }
         });
