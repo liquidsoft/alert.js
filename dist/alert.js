@@ -1,6 +1,6 @@
 /*
 alert.js
-@version 0.1.34
+@version 0.1.35
 @author Robert Ontiu
  */
 
@@ -29,7 +29,7 @@ alert.js
         });
     }
 
-}) (this, window, function (root, $window) {
+})(this, window, function (root, $window) {
 
     /*
     @private
@@ -44,34 +44,34 @@ alert.js
      */
     var options = {
         // Frame header
-        displayHeader : true,
+        displayHeader: true,
 
         // Close button available in header
-        closeButton : true,
+        closeButton: true,
 
         // Callback (called when the dialog is closed)
-        close : null,
+        close: null,
 
         // Title
-        title : "Alert!",
+        title: "Alert!",
 
         // If true, the dialog is rendered prior to the already queued dialogs
         skipQueue: false,
-		
-		// jQuery draggable
-		draggable: (typeof(jQuery) === "function") && (typeof(jQuery.ui) === "object") && (typeof(jQuery.fn.draggable) === "function"),
-		
-		position: {
-			top: "10%",
-			left: "center"
-		},
+
+        // jQuery draggable
+        draggable: (typeof(jQuery) === "function") && (typeof(jQuery.ui) === "object") && (typeof(jQuery.fn.draggable) === "function"),
+
+        position: {
+            top: "10%",
+            left: "center"
+        },
 
         /*
          Buttons as {title : callback}
          - the callback receives the alert as parameter
          */
-        buttons : {
-            "Ok" : function (alert) {
+        buttons: {
+            "Ok": function (alert) {
                 alert.close();
             }
         }
@@ -84,7 +84,7 @@ alert.js
      * @param {object} [opts]
      * @constructor
      */
-    var Alert = function() {
+    var Alert = function () {
         this.init.apply(this, arguments);
     }
 
@@ -112,11 +112,11 @@ alert.js
         if (typeof(this.options.close) === "function") {
             this.options.close(this);
         }
-		
-		// Destroy draggable
-		if (this.options.draggable) {
-			jQuery(this.element).draggable("destroy");
-		}
+
+        // Destroy draggable
+        if (this.options.draggable) {
+            jQuery(this.element).draggable("destroy");
+        }
 
         // Register alert for garbage collection
         Alert.gc(this);
@@ -156,7 +156,7 @@ alert.js
             clearEl.style.clear = "both";
 
             header.appendChild(clearEl);
-        };
+        }
 
         // Display body
         var body = $window.document.createElement("div");
@@ -201,32 +201,32 @@ alert.js
                             callback.call(this, self);
                         })
 
-                    }) (callback);
+                    })(callback);
                 }
             }
         }
 
         this.element = alert;
-		
-		// Initialize draggable
-		if (	this.options.draggable && 
-				(typeof(jQuery) === "function") &&
-				(typeof(jQuery.ui) === "object") &&
-				(typeof(jQuery.fn.draggable) === "function")
-		) {
-			jQuery(this.element).draggable({
-					
-				containment: "parent",
-				handle: ".alert-header",
-				stop: function () {
-					relative(self);
-				}
-				
-			});
 
-			// Fix position: relative set by jquery
-			this.element.style.position = "absolute";
-		}
+        // Initialize draggable
+        if (this.options.draggable &&
+            (typeof(jQuery) === "function") &&
+            (typeof(jQuery.ui) === "object") &&
+            (typeof(jQuery.fn.draggable) === "function")
+        ) {
+            jQuery(this.element).draggable({
+
+                containment: "parent",
+                handle: ".alert-header",
+                stop: function () {
+                    relative(self);
+                }
+
+            });
+
+            // Fix position: relative set by jquery
+            this.element.style.position = "absolute";
+        }
 
         return alert;
     }
@@ -243,16 +243,17 @@ alert.js
     /**
      * Garbage colllection handler
      *
-     * @param {Alert|string|HTMLElement} arg0 - If an Alert object is passed, the handler stores it. Otherwise the arguments refer to Alert.init
+     * @param {Alert|string|HTMLElement} arg0 - If an Alert object is passed, the handler stores it. Otherwise the
+     *     arguments refer to Alert.init
      * @param {Object} [arg1]
      */
     Alert.gc = function (arg0, arg1) {
         if (arg0 instanceof Alert) {
             if (arg0.element !== null) {
-				arg0.close();
-				return;
-			}
-			
+                arg0.close();
+                return;
+            }
+
             gc.push(arg0);
             return;
         }
@@ -287,30 +288,66 @@ alert.js
         position = function (alert) {
             if ((container === null) || (alert.element === null)) return;
 
-			alert.element.style.left = (alert.options.position.left === "center") ?
-											((container.offsetWidth - alert.element.offsetWidth) *.5) + "px" :
-											alert.options.position.left;
-											
+            alert.element.style.left = (alert.options.position.left === "center") ?
+                ((container.offsetWidth - alert.element.offsetWidth) * .5) + "px" :
+                alert.options.position.left;
+
             alert.element.style.top = (alert.options.position.top === "center") ?
-											((container.offsetHeight - alert.element.offsetHeight) *.5) + "px" :
-											alert.options.position.top;
-			
-			return alert;
+                ((container.offsetHeight - alert.element.offsetHeight) * .5) + "px" :
+                alert.options.position.top;
+
+            return alert;
         },
-		
-		// Sets the position of the dialog in percentage rather than pixels
-		relative = function(alert) {
-			if ((container === null) || (alert.element === null)) return;
-			
-			var left 	= (((alert.element.offsetLeft + alert.element.offsetWidth * 0.5) / container.offsetWidth) * 100),
-				top		= (((alert.element.offsetTop + alert.element.offsetHeight * 0.5) / container.offsetHeight) * 100);
-			
-			alert.element.style.left	=  "calc(" + left + "% - " + (alert.element.offsetWidth * 0.5) + "px)";
-			alert.element.style.top		=  "calc(" + top + "% - " + (alert.element.offsetHeight * 0.5) + "px)";
-			
-			return alert;
-			
-		},
+
+        // Sets the position of the dialog in percentage rather than pixels
+        relative = function (alert) {
+            if ((container === null) || (alert.element === null)) return;
+
+            var left = (((alert.element.offsetLeft + alert.element.offsetWidth * 0.5) / container.offsetWidth) * 100),
+                top = (((alert.element.offsetTop + alert.element.offsetHeight * 0.5) / container.offsetHeight) * 100);
+
+            alert.element.style.left = "calc(" + left + "% - " + (alert.element.offsetWidth * 0.5) + "px)";
+            alert.element.style.top = "calc(" + top + "% - " + (alert.element.offsetHeight * 0.5) + "px)";
+
+            return alert;
+
+        },
+
+        // Get element outer height
+        outerHeight = function (element) {
+            var style = getComputedStyle(element);
+
+            return parseInt(style.height) +
+                parseInt(style.paddingTop) +
+                parseInt(style.borderTopWidth) +
+                parseInt(style.paddingBottom) +
+                parseInt(style.borderBottomWidth);
+        },
+
+        // Adjusts body height based on dialog max height
+        adjustHeight = function (alert) {
+            if ((container === null) || (alert.element === null)) return;
+
+            var body = alert.element.querySelector(".alert-body"),
+                siblings = Array.prototype.slice.call(alert.element.children);
+
+            // reset body height
+            body.style.height = "";
+
+            var maxHeight = outerHeight(alert.element),
+                height = maxHeight;
+
+            // remove body from siblings array
+            siblings.splice(siblings.indexOf(body), 1);
+
+            siblings.forEach(function (sibling) {
+                height -= outerHeight(sibling);
+            });
+
+            body.style.height = height + "px";
+
+            return alert;
+        },
 
         // Public interface
         alert = function (arg0, arg1) {
@@ -324,6 +361,8 @@ alert.js
                     dialog.close();
                     dialog = null;
                     container.style.display = "none";
+                    document.body.style.overflow = "";
+                    document.body.style.position = "";
                 }
 
                 if (queue.length > 0) {
@@ -339,10 +378,12 @@ alert.js
                         alert();
                     };
 
+                    document.body.style.overflow = "hidden";
+                    document.body.style.position = "fixed";
                     container.style.display = "block";
                     container.appendChild(dialog.render());
 
-                    relative(position(dialog));
+                    relative(position(adjustHeight(dialog)));
                 }
 
                 return;
@@ -351,17 +392,17 @@ alert.js
             /*
             alert(body, options)  - Queues a new Alert dialog
              */
-            if (    (arg0 instanceof HTMLElement) ||
-                    (typeof(jQuery) === "function") && (arg0 instanceof jQuery) ||
-                    (typeof(arg0) === "string")
+            if ((arg0 instanceof HTMLElement) ||
+                (typeof(jQuery) === "function") && (arg0 instanceof jQuery) ||
+                (typeof(arg0) === "string")
             ) {
-				
-				// Convert newlines to break lines
-				if (typeof(arg0) === "string") {
-					arg0 = arg0.replace("\n", "<br/>");
-				}
 
-                if((typeof(arg1) === "object") && (arg1.skipQueue)) {
+                // Convert newlines to break lines
+                if (typeof(arg0) === "string") {
+                    arg0 = arg0.replace("\n", "<br/>");
+                }
+
+                if ((typeof(arg1) === "object") && (arg1.skipQueue)) {
                     queue.unshift(Alert.gc(arg0, arg1));
                 }
                 else {
@@ -393,7 +434,7 @@ alert.js
     /*
     Subscribe to document.ready
      */
-    $window.document.addEventListener("DOMContentLoaded", function(e) {
+    $window.document.addEventListener("DOMContentLoaded", function (e) {
         container = $window.document.createElement("div");
         container.className = "alert-container";
         container.style.display = "none";
@@ -401,7 +442,7 @@ alert.js
         $window.document.body.appendChild(container);
 
         // Close on click
-        container.addEventListener("click", function( e ) {
+        container.addEventListener("click", function (e) {
             e.preventDefault();
 
             if (dialog && (e.target === container)) {
@@ -414,18 +455,18 @@ alert.js
         /*
          Subscribe to document.resize
          */
-        /*$window.onresize = $window.document.body.onresize = function (e) {
-            if (dialog !== null) center(dialog);
-        };*/
+        $window.onresize = $window.document.body.onresize = function (e) {
+            if (dialog !== null) relative(position(adjustHeight(dialog)));
+        };
     });
 
     /*
     Lazy load jQuery in nonAMD nor DOM projects
      */
 
-    alert.configure = function( key, value ) {
+    alert.configure = function (key, value) {
 
-        switch(key) {
+        switch (key) {
             case "jQuery":
                 jQuery = value;
                 break;

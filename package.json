@@ -1,6 +1,6 @@
 {
   "name": "alert.js",
-  "version": "0.1.35",
+  "version": "0.1.36",
   "description": "Customizable plug and play replacement for window.alert",
   "keywords": [
     "customizable",
