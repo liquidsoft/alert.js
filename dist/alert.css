@@ -1,6 +1,6 @@
 /*
 alert.js
-@version 0.1.35
+@version 0.1.36
 @author Robert Ontiu
  */
 /*
@@ -12,6 +12,10 @@ Container
 /*
 Dialog
 */
+body.has-alert {
+  position: fixed;
+  overflow: hidden;
+}
 .alert-container {
   position: fixed;
   top: 0;

@@ -1,6 +1,6 @@
 /*
 alert.js
-@version 0.1.35
+@version 0.1.36
 @author Robert Ontiu
  */
 
@@ -349,6 +349,29 @@ alert.js
             return alert;
         },
 
+        addClass = function (element, className) {
+            var classes = element.className.split(" ");
+
+            if (classes.indexOf(className) > -1) {
+                return;
+            }
+
+            classes.push(className);
+            element.className = classes.join(" ");
+        },
+
+        removeClass = function (element, className) {
+            var classes = element.className.split(" "),
+                index = classes.indexOf(className);
+
+            if (index === -1) {
+                return;
+            }
+
+            classes.splice(index, 1);
+            element.className = classes.join(" ");
+        },
+
         // Public interface
         alert = function (arg0, arg1) {
             /*
@@ -361,8 +384,7 @@ alert.js
                     dialog.close();
                     dialog = null;
                     container.style.display = "none";
-                    document.body.style.overflow = "";
-                    document.body.style.position = "";
+                    removeClass(document.body, "has-alert");
                 }
 
                 if (queue.length > 0) {
@@ -378,8 +400,7 @@ alert.js
                         alert();
                     };
 
-                    document.body.style.overflow = "hidden";
-                    document.body.style.position = "fixed";
+                    addClass(document.body, "has-alert");
                     container.style.display = "block";
                     container.appendChild(dialog.render());
 
